@@ -1,10 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Register Page</title>
+    <title>Register</title>
 </head>
+
 <body>
+
+<h1>Food Waste Redistribution System</h1>
+<h2>Register</h2>
+
+<form th:action="@{/register}" method="post">
+
+    <label>Full Name</label><br>
+    <input type="text" name="fullName" placeholder="Enter Full Name"><br><br>
+
+    <label>Email</label><br>
+    <input type="email" name="email" placeholder="Enter Email"><br><br>
+
+    <label>Phone Number</label><br>
+    <input type="tel" name="phone" placeholder="Enter Phone Number"><br><br>
+
+    <label>Password</label><br>
+    <input type="password" name="password" placeholder="Enter Password"><br><br>
+
+    <label>Confirm Password</label><br>
+    <input type="password" name="confirmPassword" placeholder="Confirm Password"><br><br>
+
+    <label>Select Role</label><br>
+
+    <select name="role">
+
+        <option value="">Select Role</option>
+
+        <option value="RESTAURANT">Restaurant</option>
+
+        <option value="NGO">NGO</option>
+
+        <option value="VOLUNTEER">Volunteer</option>
+
+    </select>
+
+    <br><br>
+
+    <button type="submit">Register</button>
+
+</form>
+
+<br>
+
+<p>
+    Already have an account?
+    <a th:href="@{/login}">Login Here</a>
+</p>
 
 </body>
 </html>
