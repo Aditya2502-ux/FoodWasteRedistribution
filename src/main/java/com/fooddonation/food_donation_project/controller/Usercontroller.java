@@ -11,4 +11,9 @@ public class Usercontroller {
         return "registration";
     }
 
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
 }
