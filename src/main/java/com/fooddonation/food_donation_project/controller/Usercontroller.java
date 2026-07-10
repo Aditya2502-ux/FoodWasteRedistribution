@@ -30,9 +30,13 @@ public class Usercontroller {
     @PostMapping("/register")
     @ResponseBody
     public  String registerUser(@RequestBody User user){
-        userService.registerUser(user);
-
-        return "User Registered Successfully";
+        try {
+            userService.registerUser(user);
+            return "User Registered Successfully";
+        }
+        catch (RuntimeException e){
+            return e.getMessage();
+        }
     }
 
 }
