@@ -2,10 +2,9 @@ package com.fooddonation.food_donation_project.controller;
 
 import com.fooddonation.food_donation_project.model.FoodDonation;
 import com.fooddonation.food_donation_project.service.FoodDonationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/donations")
@@ -20,5 +19,15 @@ public class FoodDonationController {
     @PostMapping
     public FoodDonation createDonation(@RequestBody FoodDonation foodDonation){
         return foodDonationService.createDonation(foodDonation);
+    }
+
+    @GetMapping
+    public List<FoodDonation> getAllDonations(){
+        return foodDonationService.getAllDonations();
+    }
+
+    @GetMapping("/{id}")
+    public FoodDonation getDonationById(@PathVariable Long id){
+        return foodDonationService.getDonationById(id);
     }
 }
