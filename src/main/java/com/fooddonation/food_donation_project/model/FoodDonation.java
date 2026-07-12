@@ -1,10 +1,13 @@
 package com.fooddonation.food_donation_project.model;
 
+import com.fooddonation.food_donation_project.enums.DonationStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "food_donation")
@@ -21,14 +24,23 @@ public class FoodDonation {
 
     private String foodType;
 
+    private Integer quantity;
+
     private String pickupAddress;
 
-    private String expiryTime;
+    private LocalDateTime expiryTime;
 
     @Enumerated(EnumType.STRING)
-    private String status;
+    private DonationStatus status;
 
-    private String donor;
+    @ManyToOne
+    @JoinColumn(name = "donor_id")
+    private User donor;
 
-    private String createdAt;
+    private LocalDateTime createdAt;
+
+    @PrePersist
+    public void prePersist(){
+        this.createdAt = LocalDateTime.now();
+    }
 }
