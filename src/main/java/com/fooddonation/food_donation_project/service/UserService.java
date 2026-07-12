@@ -16,6 +16,18 @@ public class UserService {
     }
 
     public User registerUser(User user){
+        if(user.getFullName() == null || user.getFullName().trim().isEmpty()){
+            throw  new RuntimeException(("Full name is required."));
+        }
+        if(user.getEmail() == null || user.getEmail().trim().isEmpty()){
+            throw  new RuntimeException("Email is required.");
+        }
+        if(user.getPassword() == null || user.getPassword().length()< 6){
+            throw  new RuntimeException("Password must be at least 6 characters.");
+        }
+        if(user.getPhone() == null || !user.getPhone().matches("\\d{10}")){
+            throw new RuntimeException(("Phone number must contain exactly 10 digits."));
+        }
 
         Optional<User> existingUser = userRepository.findByEmail((user.getEmail()));
 
