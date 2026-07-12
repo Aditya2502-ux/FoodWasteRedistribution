@@ -1,5 +1,6 @@
 package com.fooddonation.food_donation_project.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fooddonation.food_donation_project.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,6 +25,7 @@ public class User {
 
     private String phone;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @Enumerated(EnumType.STRING)

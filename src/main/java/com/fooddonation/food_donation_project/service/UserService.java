@@ -4,6 +4,7 @@ import com.fooddonation.food_donation_project.model.User;
 import com.fooddonation.food_donation_project.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,5 +51,32 @@ public class UserService {
             throw new RuntimeException("Invalid email or password.");
         }
         return user;
+    }
+
+    public List<User> getAllUser(){
+        return  userRepository.findAll();
+    }
+
+    public User getUserById(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("User not found"));
+    }
+
+    public User updateUser(Long id, User updateUser){
+        User existingUser = userRepository.findById(id).orElseThrow(()-> new RuntimeException("User not found."));
+
+        existingUser.setFullName(updateUser.getFullName());
+        existingUser.setEmail(updateUser.getEmail());
+        existingUser.setPhone(updateUser.getPhone());
+
+        return userRepository.save(existingUser);
+    }
+
+    public void deleteUser(Long id){
+        if(!userRepository.existsById(id)){
+            throw new RuntimeException("User not found.");
+        }
+
+        userRepository.deleteById(id);
     }
 }

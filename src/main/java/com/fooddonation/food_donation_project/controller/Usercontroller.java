@@ -3,10 +3,9 @@ package com.fooddonation.food_donation_project.controller;
 import com.fooddonation.food_donation_project.model.User;
 import com.fooddonation.food_donation_project.service.UserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class Usercontroller {
@@ -49,6 +48,35 @@ public class Usercontroller {
         catch (RuntimeException e){
             return e.getMessage();
         }
+    }
+
+    @GetMapping("/users")
+    @ResponseBody
+    public List<User> getAllUser(){
+        return userService.getAllUser();
+    }
+
+    @GetMapping("/users/{id}")
+    @ResponseBody
+    public User getUserById(@PathVariable Long id){
+        return userService.getUserById(id);
+    }
+
+    @PutMapping("/users/{id}")
+    @ResponseBody
+    public User updateUser(
+            @PathVariable Long id,
+            @RequestBody User user
+    ){
+        return userService.updateUser(id, user);
+    }
+
+    @DeleteMapping("/users/{id}")
+    @ResponseBody
+    public String deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+
+        return "User deleted successfully";
     }
 
 }
