@@ -36,4 +36,19 @@ public class UserService {
         }
         return userRepository.save(user);
     }
+
+    public  User LoginUser(String email, String password){
+        Optional<User> existingUser = userRepository.findByEmail(email);
+
+        if(existingUser.isEmpty()){
+            throw new RuntimeException("Invalid email or password");
+        }
+
+        User user = existingUser.get();
+
+        if(!user.getPassword().equals(password)){
+            throw new RuntimeException("Invalid email or password.");
+        }
+        return user;
+    }
 }

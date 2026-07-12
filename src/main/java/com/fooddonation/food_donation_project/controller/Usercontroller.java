@@ -27,6 +27,18 @@ public class Usercontroller {
         return "login";
     }
 
+    @PostMapping("/login")
+    @ResponseBody
+    public String LoginUser(@RequestBody User user){
+        try {
+            userService.LoginUser(user.getEmail(),user.getPassword());
+            return "Login Successful";
+        }
+        catch (RuntimeException e){
+            return e.getMessage();
+        }
+    }
+
     @PostMapping("/register")
     @ResponseBody
     public  String registerUser(@RequestBody User user){
