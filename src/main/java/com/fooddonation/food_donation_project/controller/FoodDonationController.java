@@ -30,4 +30,9 @@ public class FoodDonationController {
     public FoodDonation getDonationById(@PathVariable Long id){
         return foodDonationService.getDonationById(id);
     }
+
+    @PutMapping("/{id}")
+    public FoodDonation updateDonation(@PathVariable Long id, @RequestBody FoodDonation foodDonation){
+        return foodDonationService.updateDonation(id, foodDonation);
+    }
 }

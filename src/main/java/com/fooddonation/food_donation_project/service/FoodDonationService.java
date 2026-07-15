@@ -40,4 +40,28 @@ public class FoodDonationService {
     public FoodDonation getDonationById(Long id){
         return foodDonationRepository.findById(id).orElseThrow(()-> new RuntimeException("Food donation not found"));
     }
+
+    public FoodDonation updateDonation(Long id, FoodDonation updatedDonation){
+        FoodDonation existingDonation = foodDonationRepository.findById(id).orElseThrow(()-> new RuntimeException("Food donation not found"));
+
+        if(updatedDonation.getFoodName() == null || updatedDonation.getFoodName().trim().isEmpty()){
+            throw new RuntimeException("Food name is required.");
+        }
+
+        if(updatedDonation.getQuantity() == null || updatedDonation.getQuantity() <= 0){
+            throw new RuntimeException("Quantity must be greater than zero.");
+        }
+
+        if(updatedDonation.getPickupAddress() == null || updatedDonation.getPickupAddress().trim().isEmpty()){
+            throw new RuntimeException("Pickup address is required.");
+        }
+
+        existingDonation.setFoodName(updatedDonation.getFoodName());
+        existingDonation.setFoodType(updatedDonation.getFoodType());
+        existingDonation.setQuantity(updatedDonation.getQuantity());
+        existingDonation.setPickupAddress(updatedDonation.getPickupAddress());
+        existingDonation.setExpiryTime(updatedDonation.getExpiryTime());
+
+        return foodDonationRepository.save(existingDonation);
+    }
 }
